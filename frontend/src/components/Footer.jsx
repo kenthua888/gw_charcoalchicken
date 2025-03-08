@@ -48,7 +48,7 @@ const Footer = () => {
 // Footer Container
 const FooterContainer = styled.footer`
     width: 100%;
-
+    position: relative; /* Ensure it's not fixed or absolute */
 
     overflow: hidden;
     padding: 2rem;
