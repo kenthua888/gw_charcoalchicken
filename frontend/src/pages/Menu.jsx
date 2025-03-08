@@ -104,10 +104,9 @@ const Menu = () => {
 
     return (
         <MenuContainer>
-            <HeaderContainer>
-                <h1>Our Menu</h1>
-                <p>Freshly cooked meals and family favourites</p>
-            </HeaderContainer>
+
+            <h1>Our Menu</h1>
+
             <CategoryNav>
                 <CategoryList>
                     {categories.map((category) => (
@@ -131,108 +130,79 @@ const Menu = () => {
                 </CategoryList>
             </CategoryNav>
             {/* Menu Sections */}
-            <MenuSections>
-                {categories.map((category) => (
-                    <MenuSection key={category.id} id={`category-${category.id}`}>
-                        <h2>{category.name}</h2>
-                        <MenuItems>
-                            {menuItems
-                                .filter((item) => item.category_id === category.id)
-                                .map((item) => (
-                                    <MenuItem key={item.id}>
-                                        <ItemRow>
-                                            <h3>{item.name}</h3>
-                                            {item.prices.length === 1 && item.prices[0].size === "Fixed Size" ? (
-                                                <Price>{`$${item.prices[0].price}`}</Price>
-                                            ) : (
-                                                <SizeContainer>
-                                                    {item.prices.map((price, index) => (
-                                                        <SizeColumn key={index}>
-                                                            <SizeName>{price.size}</SizeName>
-                                                            <SizePrice>{`$${price.price}`}</SizePrice>
-                                                        </SizeColumn>
-                                                    ))}
-                                                </SizeContainer>
-                                            )}
-                                        </ItemRow>
-                                        <p>{item.description}</p>
-                                    </MenuItem>
-                                ))}
-                        </MenuItems>
-                    </MenuSection>
-                ))}
-            </MenuSections>
+            <MenuSectionsContainer>
+                <MenuSections>
+                    {categories.map((category) => (
+                        <MenuSection key={category.id} id={`category-${category.id}`}>
+                            <h2>{category.name}</h2>
+                            <MenuItems>
+                                {menuItems
+                                    .filter((item) => item.category_id === category.id)
+                                    .map((item) => (
+                                        <MenuItem key={item.id}>
+                                            <ItemRow>
+                                                <h3>{item.name}</h3>
+                                                {item.prices.length === 1 && item.prices[0].size === "Fixed Size" ? (
+                                                    <Price>{`$${item.prices[0].price}`}</Price>
+                                                ) : (
+                                                    <SizeContainer>
+                                                        {item.prices.map((price, index) => (
+                                                            <SizeColumn key={index}>
+                                                                <SizeName>{price.size}</SizeName>
+                                                                <SizePrice>{`$${price.price}`}</SizePrice>
+                                                            </SizeColumn>
+                                                        ))}
+                                                    </SizeContainer>
+                                                )}
+                                            </ItemRow>
+                                            <p>{item.description}</p>
+                                        </MenuItem>
+                                    ))}
+                            </MenuItems>
+                        </MenuSection>
+                    ))}
+                </MenuSections>
+            </MenuSectionsContainer>
         </MenuContainer>
     );
 };
 
 const MenuContainer = styled.div`
-    max-width: 1200px;
     width: 100vw;
     margin: 0 auto;
-    padding: 1rem 2rem;
     scroll-behaviour: smooth;
-`;
-
-const HeaderContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers text horizontally */
-    text-align: center;  /* Ensures text inside is centered */
-    margin-bottom: 2.5rem; /* Adds spacing between header and categories */
-
-
     h1 {
-        font-size: 500;
+        background-color: #F3F8E5;
         color: #7fbc42;
         padding: 1rem 2rem;
     }
+
 `;
 
 const CategoryNav = styled.nav`
+    display: flex;
+    flex-direction: column;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.8); /* White background with 80% opacity */
-    backdrop-filter: blur(10px); /* Adds a subtle blur effect */
-
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    width: 100%;
     padding: 1rem 2rem;
-    background-color: #fff;
-
-    /* Handle overflow */
-
-    width: 100%;  /* Ensures it takes up the full width */
-    max-width: 100vw;  /* Limits the width to viewport width */
-    box-sizing: border-box;  /* Prevents padding from affecting width */
-    overflow-x: auto;  /* Allows horizontal scrolling */
-    overflow-y: hidden; /* Prevents vertical overflow */
-
-
-
-
+    z-index: 1000;
 `;
-const CategoryList = styled.ul`
-    list-style: none;
-    padding: 0;
 
+const CategoryList = styled.ul`
     display: flex;
     gap: 2rem;
-    justify-content: space-between;
-
-    flex-wrap: nowrap;
-    white-space: nowrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
 `;
 
 const CategoryItem = styled.li`
     font-size: 0.8rem;
     white-space: nowrap;
     text-overflow: ellipsis;
-
-
-
     a {
         text-decoration: none;
         color: ${({ isActive }) => (isActive ? "#7fbc42" : "rgb(16 24 32 / 0.7)")};
@@ -245,17 +215,23 @@ const CategoryItem = styled.li`
     }
 `;
 
+const MenuSectionsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
 const MenuSections = styled.div`
-    margin-top: 2rem;
+    max-width: 1200px;
+    margin-top: .1rem;
     padding-top: 4rem;
 
+
+    
 `;
 
 const MenuSection = styled.div`
     margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-
 
     h2 {
         font-size: 1.5rem;
